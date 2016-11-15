@@ -8,6 +8,8 @@
 // Include libraries for the stepper motors
 #include <AccelStepper.h>
 #include <AFMotor.h>
+#include <StatefulButton.h>
+#include <RotaryEncoder.h>
 
 // ==================================================================
 // START: motor stuff
@@ -18,7 +20,8 @@ const int MOTOR_STEPS = 2048;
 const float WHEEL_DIAMETER = 79;
 
 // Default configurations for stepper motor control
-const float MAX_SPEED = 400;
+const long MAX_DISTANCE = 99999;
+const int MAX_SPEED = 50;
 const float ACCELERATION = 100;
 
 
@@ -60,26 +63,29 @@ long setting_left_wheel_distance = 100;	// arbitrary scale
 
 
 // button pin positions
-byte buttonIncThousands= 22;		// K0: 22
-byte buttonIncHundreds = 23;		// K1: 23
-byte buttonIncTens     = 24;		// K2: 24
-byte buttonIncOnes	  = 25;	 	// K3: 25
+SimpleButton buttonIncThousands(37, true);		// K0: 22
+SimpleButton buttonIncHundreds(35, true);		// K1: 23
+SimpleButton buttonIncTens(33, true);		// K2: 24
+SimpleButton buttonIncOnes(31, true);	 	// K3: 25
 
-byte buttonDrawingMode = 26;		// K4: 26
-byte buttonUnused = 27;			// K5: 27
-byte buttonPresets = 28;			// K6: 28
-byte buttonStart = 29;			// K7: 29
+SimpleButton buttonDrawingMode(29, true);		// K4: 26
+SimpleButton buttonUnused(27, true);			// K5: 27
+SimpleButton buttonPresets(25, true);			// K6: 28
+// ToggleButton buttonPresets(25, true, 9);			// K6: 28
+// ToggleButton buttonPresets(25, true, sizeof (presets));			// K6: 28
+SimpleButton buttonStart(23, true);			// K7: 29
 
 // toggle button states
 int buttonDrawingMode_state = 0;
 
 // Many values are required for the action of the rotary controllers
-byte rotaryEncoderClkPin = 49;
-byte rotaryEncoderDtPin = 47;
-byte rotaryEncoderBtnPin = 45;
-int rotaryEncoderClkValue;
-int rotaryEncoderDtValue;
-int rotaryEncoderClkValuePrevious;
+//byte rotaryEncoderClkPin = 47;
+//byte rotaryEncoderDtPin = 49;
+RotaryEncoder encoder(49, 47);
+SimpleButton rotaryEncoderBtn(45,true);
+//int rotaryEncoderClkValue;
+//int rotaryEncoderDtValue;
+//int rotaryEncoderClkValuePrevious;
 
 // Determines which of the 4 displayed values that the Rotary controller will modify
 int rotaryMode = 0;
@@ -94,4 +100,3 @@ int presetIndex = -1;
 
 //  END:  physical UI
 // ==================================================================
-

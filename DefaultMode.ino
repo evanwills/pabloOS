@@ -23,36 +23,37 @@ void loop(){
 void default_mode(){
 
   if (!isDrawing) {
-    readRotaryEncoders();
-
     // Choose parameter. This controls which value will be modified by the knob
-    if (digitalRead(rotaryEncoderBtnPin) == LOW) {
+    if (rotaryEncoderBtn.isPressed() == true) {
       rotaryMode = (rotaryMode + 1) % 4;
       report();
       delay(300);
     }
 
+    readRotaryEncoders();
+
     // Choose drawingMode
     readModeButton();
 
     // Change increment.
-    if (digitalRead(buttonIncThousands) == LOW) {
+    if (buttonIncThousands.isPressed() == true) {
       rotaryIncrement = 1000; report();
       // cycleRotaryIncrement();
-    } else if (digitalRead(buttonIncHundreds) == LOW){
+    } else if (buttonIncHundreds.isPressed() == true){
       rotaryIncrement = 100; report();
-    } else if (digitalRead(buttonIncTens) == LOW){
+    } else if (buttonIncTens.isPressed() == true){
       rotaryIncrement = 10; report();
-    } else if (digitalRead(buttonIncOnes) == LOW){
+    } else if (buttonIncOnes.isPressed() == true){
       rotaryIncrement = 1; report();
     }
 
     // Choose preset
-    if (digitalRead(buttonPresets) == LOW) {
+    if (buttonPresets.isPressed() == true) {
       // increment presetIndex
-      presetIndex = presetIndex + 1;
+	//   presetIndex = buttonPresets.getState();
+	  presetIndex = presetIndex + 1;
 
-      // check if at end of preset length, wrap
+    //   check if at end of preset length, wrap
       if (presetIndex >= (sizeof (presets) / sizeof (*presets)) ){
         presetIndex = 0;
       }
@@ -68,7 +69,7 @@ void default_mode(){
     }
 
     // Push to start
-    if (digitalRead(buttonStart) == LOW) {
+    if (buttonStart.isPressed() == true) {
       isDrawing = true;
       displayStartMessage();
       captureSettings();
@@ -88,7 +89,7 @@ void default_mode(){
     }
 
     // Look for stop button
-    if (digitalRead(buttonStart) == LOW) {
+    if (buttonStart.isPressed() == true) {
       messageLarge("Stop!");
       stopAndResetSteppers();
       report();
@@ -105,12 +106,12 @@ void default_mode(){
  * Waits for start button to be pressed
  */
 bool waitForStartButton(){
-  return (digitalRead(buttonStart) == HIGH);
+  return (buttonStart.isPressed() == false);
 }
 
 
 void readModeButton(){
-  if ( digitalRead(buttonDrawingMode) == LOW ) {
+  if (buttonDrawingMode.isPressed() == true) {
     // mode button pressed
 
     if ( buttonDrawingMode_state == 0) {
