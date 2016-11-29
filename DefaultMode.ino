@@ -6,6 +6,8 @@ void setup()
   setupDisplay();
   setupRotaryEncoder();
   setupButtons();
+
+  Serial.begin (9600);
 }
 
 void loop(){
