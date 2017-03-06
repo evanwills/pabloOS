@@ -15,7 +15,7 @@ void customDrawingMode(){
   delay(2000);
 
   // Turn both wheels in the same directiom
-  turn_wheels_mm(100, 100);
+  turnWheelsMM(100, 100);
 
 
 }

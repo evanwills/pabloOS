@@ -50,13 +50,13 @@ void report() {
   // write core settings to screen
   OLEDScreen.setTextColor(1);
   OLEDScreen.setCursor(66, 46);
-  OLEDScreen.print(setting_right_wheel_distance); //this copies some text to the screens memory
+  OLEDScreen.print(settingRightWheelDistance); //this copies some text to the screens memory
   OLEDScreen.setCursor(103, 3);
-  OLEDScreen.print(setting_right_wheel_speed); //this copies some text to the screens memory
+  OLEDScreen.print(settingRightWheelSpeed); //this copies some text to the screens memory
   OLEDScreen.setCursor(3, 3);
-  OLEDScreen.print(setting_left_wheel_speed); //this copies some text to the screens memory
+  OLEDScreen.print(settingLeftWheelSpeed); //this copies some text to the screens memory
   OLEDScreen.setCursor(3, 46);
-  OLEDScreen.print(setting_left_wheel_distance); //this copies some text to the screens memory
+  OLEDScreen.print(settingLeftWheelDistance); //this copies some text to the screens memory
 
   // mat working on mouse over for 1 encoder
   if (rotaryMode == 0) {
@@ -114,15 +114,15 @@ void displayStartMessage() {
 
   OLEDScreen.setTextSize(1);
   OLEDScreen.setCursor(0, 0);
-  OLEDScreen.print(setting_left_wheel_speed); //this copies some text to the screens memory
+  OLEDScreen.print(settingLeftWheelSpeed); //this copies some text to the screens memory
   OLEDScreen.setCursor(110, 0);
-  OLEDScreen.print(setting_right_wheel_speed); //this copies some text to the screens memory
+  OLEDScreen.print(settingRightWheelSpeed); //this copies some text to the screens memory
 
   OLEDScreen.setCursor(0, 50);
-  OLEDScreen.print(setting_left_wheel_distance); //this copies some text to the screens memory
+  OLEDScreen.print(settingLeftWheelDistance); //this copies some text to the screens memory
 
   OLEDScreen.setCursor(110, 50);
-  OLEDScreen.print(setting_right_wheel_distance); //this copies some text to the screens memory
+  OLEDScreen.print(settingRightWheelDistance); //this copies some text to the screens memory
 
   OLEDScreen.display();
 }

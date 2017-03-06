@@ -10,12 +10,18 @@ const long STEP_FACTOR = (MOTOR_STEPS / (WHEEL_DIAMETER * PI) / 2);
 // register the number of steps by processing the captured settings
 long steps = 0;
 
+// top speed for the left motor
+float speedL;
+
+// top speed for the right motor
+float speedR;
+
 /*
  * This method captures all the knob settings
  * and gives them to the steppers.
  */
 void captureSettings() {
-
+  // TODO: update step info
   // so if I make the the knob think in mm, then
   // 1 turn is  (wheelDiam * 3.1416)
   // So, if someone says 100mm, then how many turns is that?
@@ -24,31 +30,29 @@ void captureSettings() {
   // turns in steps = 2048 * configuredDistance / (wheelDiam * 3.1416)
 
   // RIGHT WHEEL
-  stepperRight.setMaxSpeed(setting_right_wheel_speed * 10); // max 400
+  stepperRight.setMaxSpeed(settingRightWheelSpeed * 10); // max 400
   stepperRight.setAcceleration(ACCELERATION);
   // calculate how many steps to go (here we divide by 2 because the bounce goes fowards and backwards)
   // STEP_FACTOR = (MOTOR_STEPS / (WHEEL_DIAMETER * Pi) / 2)
-  steps = (setting_right_wheel_distance * STEP_FACTOR);
+  steps = (settingRightWheelDistance * STEP_FACTOR);
   stepperRight.moveTo(steps);
   // message(String(steps) );
 
   // LEFT WHEEL
-  stepperLeft.setMaxSpeed(setting_left_wheel_speed * 10); // max 400
+  stepperLeft.setMaxSpeed(settingLeftWheelSpeed * 10); // max 400
   stepperLeft.setAcceleration(ACCELERATION);
   // STEP_FACTOR = (MOTOR_STEPS / (WHEEL_DIAMETER * Pi) / 2)
-  steps = (setting_left_wheel_distance * STEP_FACTOR);
+  steps = (settingLeftWheelDistance * STEP_FACTOR);
   stepperLeft.moveTo(steps);
 }
 
-float speed_l;
-float speed_r;
 /*
  * Allows programing the Artbot by defining how far each wheel will move
  * Both wheels are moved that distance within the same time frame
  */
-void turn_wheels_mm(long distance_l, long distance_r, float top_speed){
+void turnWheelsMM(long distance_l, long distance_r, float top_speed){
 
-  set_wheels_mm(distance_l, distance_r, top_speed);
+  setWheelsMM(distance_l, distance_r, top_speed);
 
   // Could make the check "> 1" so that the infinitesimal stop is not perceivable
   while(stepperLeft.distanceToGo() != 0 || stepperRight.distanceToGo() != 0){
@@ -61,41 +65,44 @@ void turn_wheels_mm(long distance_l, long distance_r, float top_speed){
   stepperLeft.setCurrentPosition(0);
 }
 
-void turn_wheels_mm(long distance_l, long distance_r){
-  turn_wheels_mm( distance_l, distance_r, 300.0);
+void turnWheelsMM(long distance_l, long distance_r){
+  turnWheelsMM( distance_l, distance_r, 300.0);
 }
 
 /*
  * Sets the wheels to turn without turning them
  */
-void set_wheels_mm(long distance_l, long distance_r,  float top_speed) {
+void setWheelsMM(long distance_l, long distance_r,  float top_speed) {
   // calculate if there is a differential in the speeds
   if (abs(distance_l) >= abs(distance_r) ) {
-    speed_l = top_speed;
-    speed_r = top_speed * ((float)abs(distance_r) / (float)abs(distance_l));
+    speedL = top_speed;
+    speedR = top_speed * ((float)abs(distance_r) / (float)abs(distance_l));
   } else {
-    speed_r = top_speed;
-    speed_l = top_speed * ((float)abs(distance_l) / (float)abs(distance_r));
+    speedR = top_speed;
+    speedL = top_speed * ((float)abs(distance_l) / (float)abs(distance_r));
   }
 
   // translate distance into steps
-  stepperLeft.setMaxSpeed(speed_l);
+  stepperLeft.setMaxSpeed(speedL);
   stepperLeft.setAcceleration(100000);
-  stepperRight.setMaxSpeed(speed_r);
+  stepperRight.setMaxSpeed(speedR);
   stepperRight.setAcceleration(100000);
 
   stepperLeft.moveTo(distanceToSteps(distance_l));
   stepperRight.moveTo(distanceToSteps(distance_r));
 }
 
-void set_wheels_mm(long distance_l, long distance_r){
-  set_wheels_mm( distance_l, distance_r, 300.0);
+void setWheelsMM(long distance_l, long distance_r){
+  setWheelsMM( distance_l, distance_r, 300.0);
 }
+
+// ===============================================
+// This function is never called
 
 /*
  * Allows finding out when wheels should be stopped.
  */
-bool wheels_still_turning(){
+bool wheelsStillTurning(){
     // Could make the check "> 1" so that the infinitesimal stop is not perceivable
   if(stepperLeft.distanceToGo() != 0 || stepperRight.distanceToGo() != 0){
     stepperLeft.run();

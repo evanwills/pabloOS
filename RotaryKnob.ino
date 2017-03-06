@@ -21,36 +21,36 @@ void readRotaryEncoders() {
     if (rotaryEncoderDtValue == LOW) {
       // INCREMENT
       if (rotaryMode == 0) {
-        setting_right_wheel_distance += rotaryIncrement;
-        if (setting_right_wheel_distance > 99999) setting_right_wheel_distance = 99999;
+        settingRightWheelDistance += rotaryIncrement;
+        if (settingRightWheelDistance > 99999) settingRightWheelDistance = 99999;
       }
       else if (rotaryMode == 1) {
-        setting_right_wheel_speed += 1;
-        if (setting_right_wheel_speed > 50) setting_right_wheel_speed = 50;
+        settingRightWheelSpeed += 1;
+        if (settingRightWheelSpeed > 50) settingRightWheelSpeed = 50;
       }
       else if (rotaryMode == 2) {
-        setting_left_wheel_speed += 1;
-        if (setting_left_wheel_speed > 50) setting_left_wheel_speed = 50;
+        settingLeftWheelSpeed += 1;
+        if (settingLeftWheelSpeed > 50) settingLeftWheelSpeed = 50;
       }
       else {
-        setting_left_wheel_distance += rotaryIncrement;
-        if (setting_left_wheel_distance > 99999) setting_left_wheel_distance = 99999;
+        settingLeftWheelDistance += rotaryIncrement;
+        if (settingLeftWheelDistance > 99999) settingLeftWheelDistance = 99999;
       }
       report();
     }
     else {
       // DECREMENT
       if (rotaryMode == 0) {
-        setting_right_wheel_distance -= rotaryIncrement;
+        settingRightWheelDistance -= rotaryIncrement;
       }
       else if (rotaryMode == 1) {
-        setting_right_wheel_speed -= 1;
+        settingRightWheelSpeed -= 1;
       }
       else if (rotaryMode == 2) {
-        setting_left_wheel_speed -= 1;
+        settingLeftWheelSpeed -= 1;
       }
       else {
-        setting_left_wheel_distance -= rotaryIncrement;
+        settingLeftWheelDistance -= rotaryIncrement;
       }
       report();
     }

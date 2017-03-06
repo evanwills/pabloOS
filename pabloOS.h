@@ -47,10 +47,10 @@ AccelStepper stepperRight(forwardStepRight, backwardStepRight);
 AccelStepper stepperLeft(forwardStepLeft, backwardStepLeft);
 
 // These are settings captured by the UI settings
-long setting_right_wheel_distance = 93;	// in mm
-long setting_right_wheel_speed = 25;	// arbitrary scale
-long setting_left_wheel_speed = 35;		// in mm
-long setting_left_wheel_distance = 100;	// arbitrary scale
+long settingRightWheelDistance = 93;	// in mm
+long settingRightWheelSpeed = 25;	// arbitrary scale
+long settingLeftWheelSpeed = 35;		// in mm
+long settingLeftWheelDistance = 100;	// arbitrary scale
 
 
 
@@ -94,4 +94,3 @@ int presetIndex = -1;
 
 //  END:  physical UI
 // ==================================================================
-

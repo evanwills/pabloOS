@@ -12,15 +12,15 @@ void loop(){
 
   // check which mode we are
   if (drawingMode == 0) {
-    default_mode();
+    defaultMode();
   } else if ( drawingMode == 1) {
-    customDrawingMode();
+    customDrawingMode(); // see pabloOS.ino
     report(); // this ensures that the screen re-displays what is going on in default mode
   }
 
 }
 
-void default_mode(){
+void defaultMode(){
 
   if (!isDrawing) {
     readRotaryEncoders();
@@ -58,10 +58,10 @@ void default_mode(){
       }
 
       // make sure preset values are captured
-      setting_left_wheel_distance = presets[presetIndex][0];
-      setting_left_wheel_speed = presets[presetIndex][1];   // in mm
-      setting_right_wheel_speed = presets[presetIndex][2];  // arbitrary scale
-      setting_right_wheel_distance = presets[presetIndex][3]; // in mm
+      settingLeftWheelDistance = presets[presetIndex][0];
+      settingLeftWheelSpeed = presets[presetIndex][1];   // in mm
+      settingRightWheelSpeed = presets[presetIndex][2];  // arbitrary scale
+      settingRightWheelDistance = presets[presetIndex][3]; // in mm
 
       report();
       delay(200);
